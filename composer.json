@@ -1,0 +1,28 @@
+{
+    "name": "r1pp3rj4ck/lipsum-bundle",
+    "type": "symfony-bundle",
+    "description": "r1pp3rj4ck LipsumBundle",
+    "keywords": ["Fixtures", "Lorem ipsum", "Random"],
+    "homepage": "https://github.com/r1pp3rj4ck/r1pp3rj4ckLipsumBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "r1pp3rj4ck",
+            "email": "attila.bukor@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">5.3.2"
+    },
+    "autoload": {
+        "psr-0": { "r1pp3rj4ck\\LipsumBundle": "" }
+    },
+    "target-dir": "r1pp3rj4ck/LipsumBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
+ 
