@@ -11,7 +11,7 @@
 
 namespace r1pp3rj4ck\LipsumBundle\Generator;
 
-interface GeneratorInterface
+interface ProfileGeneratorInterface
 {
     const SEX_RANDOM = 0;
 

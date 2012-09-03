@@ -16,7 +16,7 @@ namespace r1pp3rj4ck\LipsumBundle\Generator;
  *
  * @author r1pp3rj4ck <attila.bukor@gmail.com>
  */
-class Generator implements GeneratorInterface
+class ProfileGenerator implements ProfileGeneratorInterface
 {
     /**
      * @var string $maleNames Male names source file
@@ -65,9 +65,13 @@ class Generator implements GeneratorInterface
      */
     public function getUserData($sex = self::SEX_RANDOM)
     {
-        $result['name']     = $this->getName($sex, rand(1,100) > 90);
-        $result['userName'] = $this->getUserName($result['name']);
-        $result['email']    = $this->getEmail($result['userName']);
+        $name                 = $this->getName($sex, rand(1,100) > 90);
+        $result['fullName']   = $name['fullName'];
+        $result['firstName']  = $name['firstName'];
+        $result['middleName'] = $name['middleName'];
+        $result['lastName']   = $name['lastName'];
+        $result['userName']   = $this->getUserName($result['fullName']);
+        $result['email']      = $this->getEmail($result['userName']);
 
         return $result;
     }
@@ -83,23 +87,24 @@ class Generator implements GeneratorInterface
      * @param int  $sex        Chosen sex
      * @param bool $middleName Middle name needed
      *
-     * @return string
+     * @return string[]
      *
      * @author r1pp3rj4ck <attila.bukor@gmail.com>
      */
     public function getName($sex = self::SEX_RANDOM, $middleName = false)
     {
-        $name = $this->getFirstName($sex) . ' ';
+        $name['firstName'] = $this->getFirstName($sex);
+        $name['lastName']  = $this->getLastName();
         if ($middleName) {
-            $mid = $name;
-            while ($mid == $name) {
-                $mid = $this->getFirstName($sex) . ' ';
-            }
-            $name .= $mid;
+            $name['middleName'] = $name['firstName'];
+            while (($name['middleName'] = $this->getFirstName($sex)) == $name['firstName']);
+            $name['fullName'] = implode(' ', array($name['firstName'], $name['middleName'], $name['lastName']));
+            return $name;
+        } else {
+            $name['fullName'] = implode(' ', array($name['firstName'], $name['lastName']));
+            $name['middleName'] = '';
+            return $name;
         }
-        $name .= $this->getLastName();
-
-        return $name;
     }
 
     /**

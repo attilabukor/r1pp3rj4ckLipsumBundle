@@ -28,15 +28,15 @@ class r1pp3rj4ckLipsumExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('generator.xml');
+        $loader->load('profileGenerator.xml');
 
         $configuration = new Configuration();
         $processor     = new Processor();
         $config        = $processor->processConfiguration($configuration, $configs);
 
-        $container->setParameter('r1pp3rj4ck.lipsum.male_names', $config['generator']['male_names']);
-        $container->setParameter('r1pp3rj4ck.lipsum.female_names', $config['generator']['female_names']);
-        $container->setParameter('r1pp3rj4ck.lipsum.last_names', $config['generator']['last_names']);
-        $container->setParameter('r1pp3rj4ck.lipsum.generator_class', $config['generator']['class']);
+        $container->setParameter('r1pp3rj4ck.lipsum.male_names', $config['profileGenerator']['profile']['male_names']);
+        $container->setParameter('r1pp3rj4ck.lipsum.female_names', $config['profileGenerator']['profile']['female_names']);
+        $container->setParameter('r1pp3rj4ck.lipsum.last_names', $config['profileGenerator']['profile']['last_names']);
+        $container->setParameter('r1pp3rj4ck.lipsum.generator_class', $config['profileGenerator']['profile']['class']);
     }
 }

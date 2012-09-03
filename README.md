@@ -81,6 +81,50 @@ r1pp3rj4ck_lipsum:
         class: Acme\DemoBundle\Generator\Generator
 ```
 
+Services
+--------
+
+### `r1pp3rj4ck.lipsum.generator.profile` - generates user data
+
+Usage:
+```php
+<?php
+
+$profileGenerator = $this->container->get('r1pp3rj4ck.lipsum.generator.profile');
+
+$userData    = $profileGenerator->getUserData(ProfileGenerator::SEX_RANDOM);
+$refUserData = array(
+  'fullName'   => 'John Doe',
+  'firstName'  => 'John',
+  'middleName' => '',
+  'lastName'   => 'Doe',
+  'userName'   => 'john.doe314',
+  'email'      => 'john.doe314@gmail.com',
+);
+// $userData and $refUserData will look like the same but with another data
+// ProfileGenerator::getUserData($sex = ProfileGenerator::SEX_RANDOM);
+// possible $sex values: SEX_RANDOM, SEX_MALE, SEX_FEMALE
+
+$name    = $profileGenerator->getName(ProfileGenerator::SEX_FEMALE, false)
+$refName = array(
+  'fullName'   => 'Jane Doe',
+  'firstName'  => 'Jane',
+  'middleName' => '',
+  'lastName'   => 'Doe',
+);
+// $name and $refName will look like the same but with another data
+// ProfileGenerator::getName($sex = ProfileGenerator::SEX_RANDOM, $middleName = false)
+
+$firstName = $profileGenerator->getFirstName(ProfileGenerator::SEX_MALE);
+$refFirstName = 'John';
+
+$name        = 'Jane Mary Doe';
+$userName    = $profileGenerator->getUserName($name);
+$refUserName = 'jane.mary.doe813';
+$email       = $profileGenerator->getEmail($userName);
+$refEmail    = 'jane.mary.doe813@gmail.com';
+```
+
 Configuration Reference
 -----------------------
 
@@ -91,8 +135,9 @@ This configuration reference contains the default values of everything:
 
 r1pp3rj4ck_lipsum:
     generator:
-        male_names: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/malenames.txt
-        female_names: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/femalenames.txt
-        last_names: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/lastnames.txt
-        class: r1pp3rj4ck\LipsumBundle\Generator\Generator
+        profile:
+            male_names: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/malenames.txt
+            female_names: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/femalenames.txt
+            last_names: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/lastnames.txt
+            class: r1pp3rj4ck\LipsumBundle\Generator\Generator
 ```
