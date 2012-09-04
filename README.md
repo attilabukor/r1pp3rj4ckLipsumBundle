@@ -62,9 +62,10 @@ The files must contain one name per line.
 
 r1pp3rj4ck_lipsum:
     generator:
-        male_names: src/Acme/DemoBundle/DataFixtures/male_names.txt
-        female_names: src/Acme/DemoBundle/DataFixtures/female_names.txt
-        last_names: src/Acme/DemoBundle/DataFixtures/last_names.txt
+        profile:
+            male_names: src/Acme/DemoBundle/DataFixtures/male_names.txt
+            female_names: src/Acme/DemoBundle/DataFixtures/female_names.txt
+            last_names: src/Acme/DemoBundle/DataFixtures/last_names.txt
 ```
 
 ### (optional) Step 4: Override the default generator
@@ -125,6 +126,23 @@ $email       = $profileGenerator->getEmail($userName);
 $refEmail    = 'jane.mary.doe813@gmail.com';
 ```
 
+### `r1pp3rj4ck.lipsum.generator.random` - generates random strings
+
+Usage:
+```php
+<?php
+
+$randomGenerator = $this->container->get('r1pp3rj4ck.lipsum.generator.random');
+
+$lipsum = $randomGenerator->getRandom(42, RandomGenerator::PUNCTUATION_ON);
+// $lipsum will be a 42 words long string, containing punctuation randomly,
+// always with a dot on the end.
+// possible punctuation values:
+// PUNCTUATION_NONE   - no punctuation at all
+// PUNCTUATION_AT_END - a dot at the end of string, nowhere else
+// PUNCTUATION_ON     - (default) contains punctuation randomly + a dot at the end
+```
+
 Configuration Reference
 -----------------------
 
@@ -139,5 +157,8 @@ r1pp3rj4ck_lipsum:
             male_names: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/malenames.txt
             female_names: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/femalenames.txt
             last_names: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/lastnames.txt
-            class: r1pp3rj4ck\LipsumBundle\Generator\Generator
+            class: r1pp3rj4ck\LipsumBundle\Generator\ProfileGenerator
+        random:
+            random: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/lipsum.txt
+            class: r1pp3rj4ck\LipsumBundle\Generator\RandomGenerator
 ```

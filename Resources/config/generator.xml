@@ -5,10 +5,14 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="r1pp3rj4ck.lipsum.generator.profile" class="%r1pp3rj4ck.lipsum.generator_class%">
+        <service id="r1pp3rj4ck.lipsum.generator.profile" class="%r1pp3rj4ck.lipsum.profile_generator_class%">
             <argument>%r1pp3rj4ck.lipsum.male_names%</argument>
             <argument>%r1pp3rj4ck.lipsum.female_names%</argument>
             <argument>%r1pp3rj4ck.lipsum.last_names%</argument>
+        </service>
+
+        <service id="r1pp3rj4ck.lipsum.generator.random" class="%r1pp3rj4ck.lipsum.random_generator_class">
+            <argument>%r1pp3rj4ck.lipsum.random%</argument>
         </service>
     </services>
 

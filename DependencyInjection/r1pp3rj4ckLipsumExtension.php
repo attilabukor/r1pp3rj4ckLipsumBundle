@@ -28,7 +28,7 @@ class r1pp3rj4ckLipsumExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('profileGenerator.xml');
+        $loader->load('generator.xml');
 
         $configuration = new Configuration();
         $processor     = new Processor();
@@ -37,6 +37,9 @@ class r1pp3rj4ckLipsumExtension extends Extension
         $container->setParameter('r1pp3rj4ck.lipsum.male_names', $config['profileGenerator']['profile']['male_names']);
         $container->setParameter('r1pp3rj4ck.lipsum.female_names', $config['profileGenerator']['profile']['female_names']);
         $container->setParameter('r1pp3rj4ck.lipsum.last_names', $config['profileGenerator']['profile']['last_names']);
-        $container->setParameter('r1pp3rj4ck.lipsum.generator_class', $config['profileGenerator']['profile']['class']);
+        $container->setParameter('r1pp3rj4ck.lipsum.profile_generator_class', $config['profileGenerator']['profile']['class']);
+
+        $container->setParameter('r1pp3rj4ck.lipsum.random', $config['profileGenerator']['random']['random']);
+        $container->setParameter('r1pp3rj4ck.lipsum.random_generator_class', $config['profileGenerator']['random']['class']);
     }
 }
