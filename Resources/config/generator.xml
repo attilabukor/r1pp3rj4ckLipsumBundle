@@ -14,6 +14,10 @@
         <service id="r1pp3rj4ck.lipsum.generator.random" class="%r1pp3rj4ck.lipsum.random_generator_class%">
             <argument>%r1pp3rj4ck.lipsum.random%</argument>
         </service>
+
+        <service id="r1pp3rj4ck.lipsum.generator.address" class="%r1pp3rj4ck.lipsum.address_generator_class%">
+            <argument>%r1pp3rj4ck.lipsum.street_names%</argument>
+        </service>
     </services>
 
 </container>
