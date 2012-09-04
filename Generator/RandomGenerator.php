@@ -31,6 +31,7 @@ class RandomGenerator implements RandomGeneratorInterface
             }
         }
 
+        fclose($handle);
         $this->randomStrings = array_values(array_unique($this->randomStrings));
     }
 
