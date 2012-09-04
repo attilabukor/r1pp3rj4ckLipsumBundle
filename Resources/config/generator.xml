@@ -11,7 +11,7 @@
             <argument>%r1pp3rj4ck.lipsum.last_names%</argument>
         </service>
 
-        <service id="r1pp3rj4ck.lipsum.generator.random" class="%r1pp3rj4ck.lipsum.random_generator_class">
+        <service id="r1pp3rj4ck.lipsum.generator.random" class="%r1pp3rj4ck.lipsum.random_generator_class%">
             <argument>%r1pp3rj4ck.lipsum.random%</argument>
         </service>
     </services>
