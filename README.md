@@ -143,6 +143,26 @@ $lipsum = $randomGenerator->getRandom(42, RandomGenerator::PUNCTUATION_ON);
 // PUNCTUATION_ON     - (default) contains punctuation randomly + a dot at the end
 ```
 
+### `r1pp3rj4ck.lipsum.generator.address` - generates random addresses
+
+Usage:
+```php
+
+<?php
+
+$addressGenerator = $this->container->get('r1pp3rj4ck.lipsum.generator.address');
+
+$address = $addressGenerator->getStreetName();
+// $address == 'Holly Drive'
+
+$address = $addressGenerator->getAddress();
+// $address == array(
+//   'streetName'   => 'Holly Drive',
+//   'streetNumber' => 242,
+//   'fullAddress'  => 'Holly Drive 242',
+// );
+```
+
 Configuration Reference
 -----------------------
 
@@ -161,4 +181,7 @@ r1pp3rj4ck_lipsum:
         random:
             random: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/lipsum.txt
             class: r1pp3rj4ck\LipsumBundle\Generator\RandomGenerator
+        address:
+            street_names: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/streetnames.txt
+            class: r1pp3rj4ck\LipsumBundle\Generator\AddressGenerator
 ```

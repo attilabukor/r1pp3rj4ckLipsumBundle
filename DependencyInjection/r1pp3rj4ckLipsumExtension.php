@@ -34,12 +34,18 @@ class r1pp3rj4ckLipsumExtension extends Extension
         $processor     = new Processor();
         $config        = $processor->processConfiguration($configuration, $configs);
 
-        $container->setParameter('r1pp3rj4ck.lipsum.male_names', $config['profileGenerator']['profile']['male_names']);
-        $container->setParameter('r1pp3rj4ck.lipsum.female_names', $config['profileGenerator']['profile']['female_names']);
-        $container->setParameter('r1pp3rj4ck.lipsum.last_names', $config['profileGenerator']['profile']['last_names']);
-        $container->setParameter('r1pp3rj4ck.lipsum.profile_generator_class', $config['profileGenerator']['profile']['class']);
+        // profile generator
+        $container->setParameter('r1pp3rj4ck.lipsum.male_names', $config['generator']['profile']['male_names']);
+        $container->setParameter('r1pp3rj4ck.lipsum.female_names', $config['generator']['profile']['female_names']);
+        $container->setParameter('r1pp3rj4ck.lipsum.last_names', $config['generator']['profile']['last_names']);
+        $container->setParameter('r1pp3rj4ck.lipsum.profile_generator_class', $config['generator']['profile']['class']);
 
-        $container->setParameter('r1pp3rj4ck.lipsum.random', $config['profileGenerator']['random']['random']);
-        $container->setParameter('r1pp3rj4ck.lipsum.random_generator_class', $config['profileGenerator']['random']['class']);
+        // "lorem ipsum" generator
+        $container->setParameter('r1pp3rj4ck.lipsum.random', $config['generator']['random']['random']);
+        $container->setParameter('r1pp3rj4ck.lipsum.random_generator_class', $config['generator']['random']['class']);
+
+        // address generator
+        $container->setParameter('r1pp3rj4ck.lipsum.street_names', $config['generator']['address']['street_names']);
+        $container->setParameter('r1pp3rj4ck.lipsum.address_generator_class', $config['generator']['address']['class']);
     }
 }
