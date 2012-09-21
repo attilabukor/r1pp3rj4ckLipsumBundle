@@ -2,7 +2,7 @@
     "name": "r1pp3rj4ck/lipsum-bundle",
     "type": "symfony-bundle",
     "description": "r1pp3rj4ck LipsumBundle",
-    "keywords": ["Fixtures", "Lorem ipsum", "Random"],
+    "keywords": ["Fixtures", "Lorem ipsum", "Random", "faker"],
     "homepage": "https://github.com/r1pp3rj4ck/r1pp3rj4ckLipsumBundle",
     "license": "MIT",
     "authors": [
