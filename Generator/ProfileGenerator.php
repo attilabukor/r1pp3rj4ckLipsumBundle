@@ -215,11 +215,11 @@ class ProfileGenerator implements ProfileGeneratorInterface
      * Populate names from file to an array
      *
      * @param string $filename File name containing the names
-     * @param array  $array    Target array reference
+     * @param array  $names    Target array reference
      *
      * @author r1pp3rj4ck <attila.bukor@gmail.com>
      */
-    private function populateNames($filename, &$array)
+    private function populateNames($filename, array &$names)
     {
         $handle = fopen($filename, 'r');
         while (($name = fgets($handle)) !== false) {
