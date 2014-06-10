@@ -223,7 +223,7 @@ class ProfileGenerator implements ProfileGeneratorInterface
     {
         $handle = fopen($filename, 'r');
         while (($name = fgets($handle)) !== false) {
-            $array[] = trim(ucfirst(strtolower($name)));
+            $names[] = trim(ucfirst(strtolower($name)));
         }
 
         fclose($handle);
