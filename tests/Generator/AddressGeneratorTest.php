@@ -27,7 +27,7 @@ class AddressGeneratorTest extends WebTestCase
     {
         $streetName = $this->addressGenerator->getStreetName();
 
-        $this->assertNotEquals($streetName, '');
+        $this->assertNotEmpty($streetName);
     }
 
     public function testGetAddress()

@@ -38,7 +38,10 @@ class ProfileGeneratorTest extends WebTestCase
         $this->assertArrayHasKey('firstName', $name);
         $this->assertArrayHasKey('middleName', $name);
         $this->assertArrayHasKey('lastName', $name);
-        $this->assertEquals($name['middleName'], '');
+        $this->assertNotEmpty($name['fullName']);
+        $this->assertNotEmpty($name['firstName']);
+        $this->assertEmpty($name['middleName']);
+        $this->assertNotEmpty($name['lastName']);
         $this->assertEquals(count($name), 4);
     }
 
@@ -50,7 +53,10 @@ class ProfileGeneratorTest extends WebTestCase
         $this->assertArrayHasKey('firstName', $name);
         $this->assertArrayHasKey('middleName', $name);
         $this->assertArrayHasKey('lastName', $name);
-        $this->assertNotEquals($name['middleName'], '');
+        $this->assertNotEmpty($name['fullName']);
+        $this->assertNotEmpty($name['firstName']);
+        $this->assertNotEmpty($name['middleName']);
+        $this->assertNotEmpty($name['lastName']);
         $this->assertEquals(count($name), 4);
     }
 
@@ -71,5 +77,29 @@ class ProfileGeneratorTest extends WebTestCase
         $this->assertRegExp('/^[a-z]+\.[a-z]+[0-9]+\@.*\..*$/', $email);
 
         $this->assertEquals($username, strstr($email, '@', true));
+    }
+
+    public function testGetFirstName()
+    {
+        $name = $this->profileGenerator->getFirstName();
+        $this->assertNotEmpty($name);
+        $female = $this->profileGenerator->getFirstName(ProfileGenerator::SEX_FEMALE);
+        $this->assertNotEmpty($female);
+        $male = $this->profileGenerator->getFirstName(ProfileGenerator::SEX_MALE);
+        $this->assertNotEmpty($male);
+        $this->assertNotEquals($male, $female);
+
+        $rc = new \ReflectionClass('\r1pp3rj4ck\LipsumBundle\Generator\ProfileGenerator');
+        $maleNamesProperty = $rc->getProperty('maleNames');
+        $maleNamesProperty->setAccessible(true);
+        $maleNames = $maleNamesProperty->getValue($this->profileGenerator);
+
+        $this->assertContains($male, $maleNames);
+
+        $femaleNamesProperty = $rc->getProperty('femaleNames');
+        $femaleNamesProperty->setAccessible(true);
+        $femaleNames = $femaleNamesProperty->getValue($this->profileGenerator);
+
+        $this->assertContains($female, $femaleNames);
     }
 }
