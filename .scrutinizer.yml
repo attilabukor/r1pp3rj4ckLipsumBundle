@@ -10,3 +10,5 @@ tools:
     php_cpd:
         enabled: true
         excluded_dirs: [vendor, Tests]
+    php_cs_fixer:
+        config : { level: psr2 }
