@@ -3,7 +3,7 @@ r1pp3rj4ckLipsumBundle
 
 Generates bullshit for fixtures and other uses
 
-[![Build Status](https://secure.travis-ci.org/r1pp3rj4ck/r1pp3rj4ckLipsumBundle.png?branch=master)](http://travis-ci.org/r1pp3rj4ck/r1pp3rj4ckLipsumBundle)
+[![Build Status](https://secure.travis-ci.org/r1pp3rj4ck/r1pp3rj4ckLipsumBundle.png?branch=master)](http://travis-ci.org/r1pp3rj4ck/r1pp3rj4ckLipsumBundle) [![Latest Stable Version](https://poser.pugx.org/r1pp3rj4ck/lipsum-bundle/v/stable.svg)](https://packagist.org/packages/r1pp3rj4ck/lipsum-bundle) [![Total Downloads](https://poser.pugx.org/r1pp3rj4ck/lipsum-bundle/downloads.svg)](https://packagist.org/packages/r1pp3rj4ck/lipsum-bundle) [![Latest Unstable Version](https://poser.pugx.org/r1pp3rj4ck/lipsum-bundle/v/unstable.svg)](https://packagist.org/packages/r1pp3rj4ck/lipsum-bundle) [![License](https://poser.pugx.org/r1pp3rj4ck/lipsum-bundle/license.svg)](https://packagist.org/packages/r1pp3rj4ck/lipsum-bundle)
 
 License
 -------
