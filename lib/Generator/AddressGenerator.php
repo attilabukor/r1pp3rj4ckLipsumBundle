@@ -64,6 +64,7 @@ class AddressGenerator implements AddressGeneratorInterface
         $address['streetName'] = $this->getStreetName();
         $address['streetNumber'] = rand(1, 999);
         $address['fullAddress'] = $address['streetName'] . ' ' . $address['streetNumber'];
+
         return $address;
     }
 }

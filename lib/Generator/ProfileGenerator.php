@@ -101,10 +101,12 @@ class ProfileGenerator implements ProfileGeneratorInterface
             $name['middleName'] = $name['firstName'];
             while (($name['middleName'] = $this->getFirstName($sex)) == $name['firstName']);
             $name['fullName'] = implode(' ', array($name['firstName'], $name['middleName'], $name['lastName']));
+
             return $name;
         } else {
             $name['fullName'] = implode(' ', array($name['firstName'], $name['lastName']));
             $name['middleName'] = '';
+
             return $name;
         }
     }
@@ -146,7 +148,7 @@ class ProfileGenerator implements ProfileGeneratorInterface
      */
     public function getUserName($name)
     {
-        return strtolower(str_replace(' ', '.', $name)) . (string)rand(1, 1000);
+        return strtolower(str_replace(' ', '.', $name)) . (string) rand(1, 1000);
     }
 
     /**

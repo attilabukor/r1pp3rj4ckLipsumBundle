@@ -63,9 +63,9 @@ class RandomGenerator implements RandomGeneratorInterface
 
             if ($i == $wordCount - 1 && ($punctuation == self::PUNCTUATION_AT_END || $punctuation == self::PUNCTUATION_ON)) {
                 $word .= '.';
-            } else if ($punctuation == self::PUNCTUATION_ON && rand(0, 100) > 80) {
+            } elseif ($punctuation == self::PUNCTUATION_ON && rand(0, 100) > 80) {
                 $word .= ',';
-            } else if ($punctuation == self::PUNCTUATION_ON && rand(0, 100) > 90) {
+            } elseif ($punctuation == self::PUNCTUATION_ON && rand(0, 100) > 90) {
                 $word .= '.';
                 $capNext = true;
             }

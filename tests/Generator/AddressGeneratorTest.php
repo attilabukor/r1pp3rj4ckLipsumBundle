@@ -39,9 +39,8 @@ class AddressGeneratorTest extends WebTestCase
         $this->assertArrayHasKey('streetNumber', $address);
         $this->assertEquals(3, count($address));
         $this->assertRegExp('/^[a-zA-Z0-9 ]+$/', $address['streetName']);
-        $this->assertEquals((int)$address['streetNumber'], $address['streetNumber']);
+        $this->assertEquals((int) $address['streetNumber'], $address['streetNumber']);
         $this->assertRegExp('/^[a-zA-Z0-9 ]+[0-9]+$/', $address['fullAddress']);
     }
-
 
 }
