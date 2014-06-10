@@ -12,9 +12,8 @@ env:
 install:
     - composer require symfony/framework-bundle:${SYMFONY_VERSION}
 
-script: phpunit --coverage-clover=cloverage.clover
-
-after_script:
+script:
+    - phpunit --coverage-clover=cloverage.clover
     - wget https://scrutinizer-ci.com/ocular.phar
     - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
 
