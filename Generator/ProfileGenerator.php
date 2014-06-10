@@ -19,17 +19,17 @@ namespace r1pp3rj4ck\LipsumBundle\Generator;
 class ProfileGenerator implements ProfileGeneratorInterface
 {
     /**
-     * @var string $maleNames Male names source file
+     * @var array $maleNames Male names array
      */
     private $maleNames;
 
     /**
-     * @var string $femaleNames Female names source file
+     * @var array $femaleNames Female names array
      */
     private $femaleNames;
 
     /**
-     * @var string $lastNames Last names source file
+     * @var array $lastNames Last names array
      */
     private $lastNames;
 
@@ -66,6 +66,7 @@ class ProfileGenerator implements ProfileGeneratorInterface
     public function getUserData($sex = self::SEX_RANDOM)
     {
         $name                 = $this->getName($sex, rand(1,100) > 90);
+        $result               = array();
         $result['fullName']   = $name['fullName'];
         $result['firstName']  = $name['firstName'];
         $result['middleName'] = $name['middleName'];
@@ -93,6 +94,7 @@ class ProfileGenerator implements ProfileGeneratorInterface
      */
     public function getName($sex = self::SEX_RANDOM, $middleName = false)
     {
+        $name              = array();
         $name['firstName'] = $this->getFirstName($sex);
         $name['lastName']  = $this->getLastName();
         if ($middleName) {
