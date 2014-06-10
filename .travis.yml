@@ -3,13 +3,18 @@ language: php
 php:
   - 5.3
   - 5.4
+  - 5.5
 
 env:
   - SYMFONY_VERSION=origin/master
+  - SYMFONY_VERSION=~2.1
+  - SYMFONY_VERSION=~2.2
+  - SYMFONY_VERSION=~2.3
+  - SYMFONY_VERSION=~2.4
+  - SYMFONY_VERSION=~2.5
 
-before_script:
-    - curl -S http://getcomposer.org/installer | php
-    - php composer.phar install
+install:
+    - composer require symfony/framework-bundle:${SYMFONY_VERSION}
 
 script: phpunit --coverage-clover=cloverage.clover
 
