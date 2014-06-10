@@ -11,6 +11,12 @@ before_script:
     - curl -S http://getcomposer.org/installer | php
     - php composer.phar install
 
+script: phpunit --coverage-clover=cloverage.clover
+
+after_script:
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+
 notifications:
   email:
     - attila.bukor@gmail.com
