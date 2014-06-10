@@ -12,7 +12,6 @@
 namespace r1pp3rj4ck\LipsumBundle\Tests\Generator;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
 use r1pp3rj4ck\LipsumBundle\Generator\ProfileGenerator;
 
 class ProfileGeneratorTest extends WebTestCase

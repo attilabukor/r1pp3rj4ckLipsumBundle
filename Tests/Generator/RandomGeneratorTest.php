@@ -12,7 +12,6 @@
 namespace r1pp3rj4ck\LipsumBundle\Tests\Generator;
 
 use r1pp3rj4ck\LipsumBundle\Generator\RandomGenerator;
-
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class RandomGeneratorTest extends WebTestCase

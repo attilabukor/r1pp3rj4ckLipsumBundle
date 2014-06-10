@@ -26,7 +26,7 @@ interface RandomGeneratorInterface
      * @param int $wordCount   Word count
      * @param int $punctuation Punctuation (none, at end, on)
      *
-     * @return mixed
+     * @return string
      */
     public function getRandom($wordCount = 42, $punctuation = self::PUNCTUATION_ON);
 }

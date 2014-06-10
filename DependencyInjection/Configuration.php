@@ -12,7 +12,6 @@
 namespace r1pp3rj4ck\LipsumBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
