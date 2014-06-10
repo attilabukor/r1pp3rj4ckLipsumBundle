@@ -21,17 +21,17 @@ class ProfileGenerator implements ProfileGeneratorInterface
     /**
      * @var array $maleNames Male names array
      */
-    private $maleNames;
+    private $maleNames = array();
 
     /**
      * @var array $femaleNames Female names array
      */
-    private $femaleNames;
+    private $femaleNames = array();
 
     /**
      * @var array $lastNames Last names array
      */
-    private $lastNames;
+    private $lastNames = array();
 
     /**
      * Constructor
