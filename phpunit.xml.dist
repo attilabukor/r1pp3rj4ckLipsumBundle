@@ -9,7 +9,7 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"
-         bootstrap="tests/tests/bootstrap.php"
+         bootstrap="tests/bootstrap.php"
 >
     <testsuites>
         <testsuite name="Lipsum Bundle Test Suite">
