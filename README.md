@@ -174,14 +174,14 @@ This configuration reference contains the default values of everything:
 r1pp3rj4ck_lipsum:
     generator:
         profile:
-            male_names: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/malenames.txt
-            female_names: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/femalenames.txt
-            last_names: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/lastnames.txt
+            male_names: vendor/r1pp3rj4ck/lipsum-bundle/data/malenames.txt
+            female_names: vendor/r1pp3rj4ck/lipsum-bundle/data/femalenames.txt
+            last_names: vendor/r1pp3rj4ck/lipsum-bundle/data/lastnames.txt
             class: r1pp3rj4ck\LipsumBundle\Generator\ProfileGenerator
         random:
-            random: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/lipsum.txt
+            random: vendor/r1pp3rj4ck/lipsum-bundle/data/lipsum.txt
             class: r1pp3rj4ck\LipsumBundle\Generator\RandomGenerator
         address:
-            street_names: vendor/r1pp3rj4ck/lipsum-bundle/r1pp3rj4ck/LipsumBundle/data/streetnames.txt
+            street_names: vendor/r1pp3rj4ck/lipsum-bundle/data/streetnames.txt
             class: r1pp3rj4ck\LipsumBundle\Generator\AddressGenerator
 ```
