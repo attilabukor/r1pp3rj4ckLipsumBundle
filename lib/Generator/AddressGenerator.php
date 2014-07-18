@@ -35,7 +35,7 @@ class AddressGenerator
         $file = new File($streetNames);
         $splFileObject = $file->openFile('r');
         while (!$splFileObject->eof()) {
-            $this->streetNames[] = $splFileObject->fgets();
+            $this->streetNames[] = trim($splFileObject->fgets());
         }
     }
 
