@@ -85,7 +85,7 @@ class ProfileGenerator
         $file = new File($filename);
         $splFileObject = $file->openFile('r');
         while (!$splFileObject->eof()) {
-            $names[] = trim(ucfirst(strtolower($splFileObject->fgets())));
+            $names[] = $splFileObject->fgets();
         }
         return $names;
     }
