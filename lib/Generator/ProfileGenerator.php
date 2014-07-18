@@ -11,13 +11,22 @@
 
 namespace r1pp3rj4ck\LipsumBundle\Generator;
 
+use r1pp3rj4ck\LipsumBundle\Model\Profile;
+use Symfony\Component\HttpFoundation\File\File;
+
 /**
  * Generates random data
  *
  * @author r1pp3rj4ck <attila.bukor@gmail.com>
  */
-class ProfileGenerator implements ProfileGeneratorInterface
+class ProfileGenerator
 {
+    const SEX_RANDOM = 0;
+
+    const SEX_MALE = 1;
+
+    const SEX_FEMALE = 2;
+
     /**
      * @var array $maleNames Male names array
      */
@@ -33,122 +42,89 @@ class ProfileGenerator implements ProfileGeneratorInterface
      */
     private $lastNames = array();
 
+    private $emailProviders = array();
+
+    private $addressGenerator;
+
     /**
      * Constructor
      *
-     * @param string $maleNames   Male names source file
+     * @param string $maleNames Male names source file
      * @param string $femaleNames Female names source file
-     * @param string $lastNames   Last names source file
+     * @param string $lastNames Last names source file
+     * @param array $emailProviders Email providers
+     * @param AddressGenerator $addressGenerator Address generator
      *
      * @author r1pp3rj4ck <attila.bukor@gmail.com>
      */
-    public function __construct($maleNames, $femaleNames, $lastNames)
-    {
-        $this->populateNames($maleNames, $this->maleNames);
-        $this->populateNames($femaleNames, $this->femaleNames);
-        $this->populateNames($lastNames, $this->lastNames);
+    public function __construct(
+        $maleNames,
+        $femaleNames,
+        $lastNames,
+        array $emailProviders,
+        AddressGenerator $addressGenerator
+    ) {
+        $this->maleNames = $this->populateNames($maleNames);
+        $this->femaleNames = $this->populateNames($femaleNames);
+        $this->lastNames = $this->populateNames($lastNames);
+        $this->emailProviders = $emailProviders;
+        $this->addressGenerator = $addressGenerator;
     }
 
     /**
-     * Gets user data in an array
+     * Populate names from file to an array
      *
-     * Contains name, user name and email. Sex can be specified:
-     * Generator::SEX_RANDOM - random sex
-     * Generator::SEX_MALE - male name
-     * Generator::SEX_FEMALE - female name
-     *
-     * @param int $sex Chosen sex
+     * @param string $filename File name containing the names
      *
      * @return array
-     *
      * @author r1pp3rj4ck <attila.bukor@gmail.com>
      */
-    public function getUserData($sex = self::SEX_RANDOM)
+    private function populateNames($filename)
     {
-        $name                 = $this->getName($sex, rand(1,100) > 90);
-        $result               = array();
-        $result['fullName']   = $name['fullName'];
-        $result['firstName']  = $name['firstName'];
-        $result['middleName'] = $name['middleName'];
-        $result['lastName']   = $name['lastName'];
-        $result['userName']   = $this->getUserName($result['fullName']);
-        $result['email']      = $this->getEmail($result['userName']);
-
-        return $result;
-    }
-
-    /**
-     * Gets a full name
-     *
-     * Creates a random name, sex can be specified:
-     * Generator::SEX_RANDOM - random sex
-     * Generator::SEX_MALE - male name
-     * Generator::SEX_FEMALE - female name
-     *
-     * @param int  $sex        Chosen sex
-     * @param bool $middleName Middle name needed
-     *
-     * @return string[]
-     *
-     * @author r1pp3rj4ck <attila.bukor@gmail.com>
-     */
-    public function getName($sex = self::SEX_RANDOM, $middleName = false)
-    {
-        $name              = array();
-        $name['firstName'] = $this->getFirstName($sex);
-        $name['lastName']  = $this->getLastName();
-        if ($middleName) {
-            $name['middleName'] = $name['firstName'];
-            while (($name['middleName'] = $this->getFirstName($sex)) == $name['firstName']);
-            $name['fullName'] = implode(' ', array($name['firstName'], $name['middleName'], $name['lastName']));
-
-            return $name;
-        } else {
-            $name['fullName'] = implode(' ', array($name['firstName'], $name['lastName']));
-            $name['middleName'] = '';
-
-            return $name;
+        $names = array();
+        $file = new File($filename);
+        $splFileObject = $file->openFile('r');
+        while (!$splFileObject->eof()) {
+            $names[] = trim(ucfirst(strtolower($splFileObject->fgets())));
         }
+        return $names;
     }
 
     /**
-     * Gets an email by a user name
+     * @param int $sex
+     * @param null $middleName
      *
-     * Appends an email provider to the user name.
-     *
-     * @param string $userName Chosen user name
-     *
-     * @return string
-     *
-     * @author r1pp3rj4ck <attila.bukor@gmail.com>
+     * @return Profile
      */
-    public function getEmail($userName)
+    public function createUser($sex = self::SEX_RANDOM, $middleName = null)
     {
-        $emailProviders = array(
-            'gmail.com',
-            'yahoo.com',
-            'hotmail.com',
-            'facebook.com',
-        );
+        if ($sex === self::SEX_RANDOM && mt_rand(0, 1) || $sex === self::SEX_MALE) {
+            $sex = self::SEX_MALE;
+        } else {
+            $sex = self::SEX_FEMALE;
+        }
 
-        return $userName . '@' . $emailProviders[rand(0, count($emailProviders) -1)];
-    }
+        $profile = new Profile();
+        $firstName = $this->getFirstName($sex);
+        $lastName = $this->getLastName();
+        $profile
+            ->setFirstName($firstName)
+            ->setLastName($lastName);
 
-    /**
-     * Gets a user name by a full name
-     *
-     * Concatenates the names by a period and appends a
-     * random number from 0 to 1000.
-     *
-     * @param string $name Full name
-     *
-     * @return string
-     *
-     * @author r1pp3rj4ck <attila.bukor@gmail.com>
-     */
-    public function getUserName($name)
-    {
-        return strtolower(str_replace(' ', '.', $name)) . (string) rand(1, 1000);
+        if ($middleName === null && mt_rand(0, 2) == 1 || $middleName === true) {
+            while (($middleName = $this->getFirstName($sex)) == $firstName) {
+                ;
+            }
+            $profile->setMiddleName($middleName);
+        }
+
+        $userName = $this->getUserName($firstName, $lastName);
+        $profile
+            ->setUserName($userName)
+            ->setAddress($this->addressGenerator->getAddress())
+            ->setEmail($this->getEmail(mt_rand(0, 2) ? $userName : $this->getUserName($firstName, $lastName)));
+
+        return $profile;
     }
 
     /**
@@ -165,17 +141,12 @@ class ProfileGenerator implements ProfileGeneratorInterface
      *
      * @author r1pp3rj4ck <attila.bukor@gmail.com>
      */
-    public function getFirstName($sex = self::SEX_RANDOM)
+    protected function getFirstName($sex)
     {
-        switch ($sex) {
-            case self::SEX_FEMALE:
-                return $this->getFemaleName();
-            case self::SEX_MALE:
-                return $this->getMaleName();
-            default:
-                return rand(1, 2) == 1
-                    ? $this->getMaleName()
-                    : $this->getFemaleName();
+        if ($sex === self::SEX_MALE) {
+            return $this->maleNames[mt_rand(0, count($this->maleNames) - 1)];
+        } else {
+            return $this->femaleNames[mt_rand(0, count($this->femaleNames) - 1)];
         }
     }
 
@@ -186,50 +157,48 @@ class ProfileGenerator implements ProfileGeneratorInterface
      *
      * @author r1pp3rj4ck <attila.bukor@gmail.com>
      */
-    public function getLastName()
+    protected function getLastName()
     {
-        return $this->lastNames[rand(0, count($this->lastNames) -1)];
+        return $this->lastNames[mt_rand(0, count($this->lastNames) - 1)];
     }
 
     /**
-     * Gets a random female first name
+     * Gets a user name by a full name
+     *
+     * @param string $firstName First name
+     * @param string $lastName Last name
      *
      * @return string
      *
      * @author r1pp3rj4ck <attila.bukor@gmail.com>
      */
-    protected function getFemaleName()
+    protected function getUserName($firstName, $lastName)
     {
-        return $this->femaleNames[rand(0, count($this->femaleNames) -1)];
+        $firstName = mt_rand(0, 10) % 3 == 0 ? $firstName : strtolower($firstName);
+        $lastName = mt_rand(0, 10) % 3 == 0 ? $lastName : strtolower($lastName);
+        $separators = ['_', '-', '.', ''];
+        $firstName = mt_rand(0, 10) % 4 == 0 ? $firstName : substr($firstName, 0, 1);
+        $separator = $separators[mt_rand(
+            0,
+            count($separators) - 1
+        )];
+        $number = mt_rand(1, 10) % 4 == 0 ? mt_rand(1, 100) : '';
+        return $firstName . $separator . $lastName . $number;
     }
 
     /**
-     * Gets a random male first name
+     * Gets an email by a user name
+     *
+     * Appends an email provider to the user name.
+     *
+     * @param string $userName Chosen user name
      *
      * @return string
      *
      * @author r1pp3rj4ck <attila.bukor@gmail.com>
      */
-    protected function getMaleName()
+    protected function getEmail($userName)
     {
-        return $this->maleNames[rand(0, count($this->maleNames) -1)];
-    }
-
-    /**
-     * Populate names from file to an array
-     *
-     * @param string $filename File name containing the names
-     * @param array  $names    Target array reference
-     *
-     * @author r1pp3rj4ck <attila.bukor@gmail.com>
-     */
-    private function populateNames($filename, array &$names)
-    {
-        $handle = fopen($filename, 'r');
-        while (($name = fgets($handle)) !== false) {
-            $names[] = trim(ucfirst(strtolower($name)));
-        }
-
-        fclose($handle);
+        return $userName . '@' . $this->emailProviders[mt_rand(0, count($this->emailProviders) - 1)];
     }
 }

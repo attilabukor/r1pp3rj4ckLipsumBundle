@@ -11,12 +11,14 @@
 
 namespace r1pp3rj4ck\LipsumBundle\Generator;
 
+use Symfony\Component\HttpFoundation\File\File;
+
 /**
  * Address generator
  *
  * @auhor r1pp3rj4ck <attila.bukor@gmail.com>
  */
-class AddressGenerator implements AddressGeneratorInterface
+class AddressGenerator
 {
     /**
      * @var array $streetNames
@@ -30,25 +32,11 @@ class AddressGenerator implements AddressGeneratorInterface
      */
     public function __construct($streetNames)
     {
-        $handle = fopen($streetNames, 'r');
-
-        while (($streetName = fgets($handle)) !== false) {
-            $this->streetNames[] = trim($streetName);
+        $file = new File($streetNames);
+        $splFileObject = $file->openFile('r');
+        while (!$splFileObject->eof()) {
+            $this->streetNames[] = $splFileObject->fgets();
         }
-
-        fclose($handle);
-    }
-
-    /**
-     * Gets a street name
-     *
-     * @return string
-     *
-     * @author r1pp3rj4ck <attila.bukor@gmail.com>
-     */
-    public function getStreetName()
-    {
-        return $this->streetNames[rand(0, count($this->streetNames) -1)];
     }
 
     /**
@@ -60,11 +48,6 @@ class AddressGenerator implements AddressGeneratorInterface
      */
     public function getAddress()
     {
-        $address = array();
-        $address['streetName'] = $this->getStreetName();
-        $address['streetNumber'] = rand(1, 999);
-        $address['fullAddress'] = $address['streetName'] . ' ' . $address['streetNumber'];
-
-        return $address;
+        return $this->streetNames[mt_rand(0, count($this->streetNames) - 1)] . ' ' . mt_rand(1000,9999);
     }
 }

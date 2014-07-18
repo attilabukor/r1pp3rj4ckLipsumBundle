@@ -39,6 +39,7 @@ class r1pp3rj4ckLipsumExtension extends Extension
         $container->setParameter('r1pp3rj4ck.lipsum.female_names', $config['generator']['profile']['female_names']);
         $container->setParameter('r1pp3rj4ck.lipsum.last_names', $config['generator']['profile']['last_names']);
         $container->setParameter('r1pp3rj4ck.lipsum.profile_generator_class', $config['generator']['profile']['class']);
+        $container->setParameter('r1pp3rj4ck.lipsum.email_providers', $config['generator']['profile']['email_providers']);
 
         // "lorem ipsum" generator
         $container->setParameter('r1pp3rj4ck.lipsum.random', $config['generator']['random']['random']);

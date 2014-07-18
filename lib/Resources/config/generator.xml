@@ -9,6 +9,8 @@
             <argument>%r1pp3rj4ck.lipsum.male_names%</argument>
             <argument>%r1pp3rj4ck.lipsum.female_names%</argument>
             <argument>%r1pp3rj4ck.lipsum.last_names%</argument>
+            <argument>%r1pp3rj4ck.lipsum.email_providers%</argument>
+            <argument type="service" id="r1pp3rj4ck.lipsum.generator.address"/>
         </service>
 
         <service id="r1pp3rj4ck.lipsum.generator.random" class="%r1pp3rj4ck.lipsum.random_generator_class%">
